@@ -1,0 +1,18 @@
+<div class="max-w-full mx-5 mt-20 h-full">
+  <div class="flex flex-col">
+    <h1 class="text-2xl font-semibold uppercase text-center">New arrivals</h1>
+    <p class="text-center text-sm mt-4">
+      Check out the latest additions to our collection and stay ahead of the
+      <br />
+      trends with our new arrivals.
+    </p>
+    <div class="mt-8 grid grid-cols-4 gap-4">
+      <div
+        *ngFor="let item of [1, 2, 3, 4]"
+        class="bg-white p-4 rounded-lg shadow"
+      >
+        <p>Product {{ item }}</p>
+      </div>
+    </div>
+  </div>
+</div>

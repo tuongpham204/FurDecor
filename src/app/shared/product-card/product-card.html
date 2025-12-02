@@ -1,0 +1,77 @@
+<!-- product-card.html - Version Gọn -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
+  
+  <!-- Image Section -->
+  <div class="relative overflow-hidden aspect-square">
+    <img 
+      [src]="product.image_path" 
+      [alt]="product.name"
+      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+      
+    />
+    
+    <!-- Discount Badge -->
+    <div *ngIf="hasDiscount" 
+         class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-lg">
+      -{{ discountPercentage }}%
+    </div>
+    
+    <!-- Featured Badge -->
+    <div *ngIf="product.featured" 
+         class="absolute top-2 left-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-lg">
+      ⭐ Featured
+    </div>
+
+    <!-- Out of Stock Overlay -->
+    <div *ngIf="product.stock === 0" 
+         class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+      <span class="text-white text-lg font-bold">Out of Stock</span>
+    </div>
+  </div>
+  
+  <!-- Info Section -->
+  <div class="p-4">
+    
+    <!-- Category -->
+    <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+      {{ product.category }}
+    </p>
+    
+    <!-- Product Name -->
+    <h3 class="text-base font-semibold text-gray-800 mb-3 line-clamp-2 min-h-[3rem]">
+      {{ product.name }}
+    </h3>
+    
+    <!-- Price Section -->
+    <div class="mb-3">
+      <div class="flex items-baseline gap-2">
+        <span class="text-2xl font-bold text-gray-900" 
+              [class.text-red-600]="hasDiscount">
+          ${{ displayPrice }}
+        </span>
+        <span *ngIf="hasDiscount" 
+              class="text-sm text-gray-400 line-through">
+          ${{ product.price }}
+        </span>
+      </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="flex gap-2">
+      <button 
+        
+        class="flex-1 bg-white border-2 border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-200 font-medium text-sm"
+      >
+        View Details
+      </button>
+      
+      <button 
+        class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed font-medium text-sm"
+        [disabled]="product.stock === 0"
+      >
+        {{ product.stock > 0 ? 'Add to Cart' : 'Sold Out' }}
+      </button>
+    </div>
+    
+  </div>
+</div>
