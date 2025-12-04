@@ -1,28 +1,35 @@
 <!-- product-list.html -->
-<div class="container mx-auto px-4 py-8">
+<div class="container px-8 py-8">
+  <!-- Title -->
   <h1 class="text-4xl font-bold text-gray-800 mb-2 text-center">Our Furniture Collection</h1>
-  <p *ngIf="totalCount > 0" class="text-gray-600 text-center mb-8">{{ totalCount }} products available</p>
-  
+  <p *ngIf="totalCount > 0" class="text-gray-600 text-center mb-8">
+    {{ totalCount }} products available
+  </p>
+
+  <!-- Loading Spinner -->
   <div *ngIf="loading" class="flex justify-center items-center h-64">
     <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
   </div>
 
+  <!-- Error Message -->
   <div
     *ngIf="error && !loading"
-    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-8"
     role="alert"
   >
     <strong class="font-bold">Error!</strong>
     <span class="block sm:inline">{{ error }}</span>
   </div>
 
-  <div
-    *ngIf="!loading && !error"
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-  >
-    <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
-  </div>
+  <!-- Product Grid -->
+    <div
+      *ngIf="!loading && !error && products.length > 0"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+    >
+      <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+    </div>
 
+  <!-- No products -->
   <div *ngIf="!loading && !error && products.length === 0" class="text-center text-gray-500 py-16">
     <p class="text-xl">No products found</p>
   </div>

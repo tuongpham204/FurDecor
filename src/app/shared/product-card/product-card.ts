@@ -2,24 +2,28 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
+import { LucideAngularModule, Flame, TreeDeciduous } from 'lucide-angular';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './product-card.html',
 })
 export class ProductCard implements OnInit {
   @Input() product!: Product;
-  
+
   ngOnInit(): void {
     console.log('🎴 ProductCard loaded with product:', this.product);
   }
-
+  readonly Flame = Flame;
+  readonly TreeDeciduous = TreeDeciduous;
   // Tính % giảm giá
   get discountPercentage(): number {
     if (this.product.discount_price && this.product.price > this.product.discount_price) {
-      return Math.round(((this.product.price - this.product.discount_price) / this.product.price) * 100);
+      return Math.round(
+        ((this.product.price - this.product.discount_price) / this.product.price) * 100
+      );
     }
     return 0;
   }
@@ -31,7 +35,9 @@ export class ProductCard implements OnInit {
 
   // Check có giảm giá không
   get hasDiscount(): boolean {
-    return this.product.discount_price !== undefined && this.product.discount_price < this.product.price;
+    return (
+      this.product.discount_price !== undefined && this.product.discount_price < this.product.price
+    );
   }
 
   // Format category name

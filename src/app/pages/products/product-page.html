@@ -1,0 +1,60 @@
+<!-- product-list.html -->
+<div class="container mx-auto px-10 py-8">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <p class="text-2xl font-semibold">Products</p>
+
+    <div class="flex items-center gap-3">
+      <!-- Search Bar -->
+      <div class="relative w-64">
+        <lucide-icon
+          [img]="Search"
+          class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+        ></lucide-icon>
+
+        <input
+          type="text"
+          placeholder="Search"
+          class="w-full pl-10 pr-3 py-2 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+        />
+      </div>
+
+      <!-- Add New Product Button -->
+      <button
+        (click)="onAddProduct()"
+        class="flex items-center gap-2 px-4 py-2 border border-gray-800 text-sm font-medium rounded-full shadow-sm hover:bg-gray-100 transition"
+      >
+        <lucide-icon [img]="Plus" class="w-4 h-4"></lucide-icon>
+        Add new product
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
+  </div>
+
+  <!-- Error Message -->
+  <div
+    *ngIf="error && !loading"
+    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-8"
+    role="alert"
+  >
+    <strong class="font-bold">Error!</strong>
+    <span class="block sm:inline">{{ error }}</span>
+  </div>
+
+  <!-- Product Grid -->
+    <div
+      *ngIf="!loading && !error && products.length > 0"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+    >
+      <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+    </div>
+
+  <!-- No products -->
+  <div *ngIf="!loading && !error && products.length === 0" class="text-center text-gray-500 py-16">
+    <p class="text-xl">No products found</p>
+  </div>
+</div>

@@ -1,49 +1,64 @@
-<header
-  class="w-full  "
->
-  <div class="flex items-center justify-between px-14 py-4">
+<header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-50">
+  <div class="flex items-center justify-between px-8 lg:px-14 py-4 border-b border-gray-300">
+    
+    <!-- Logo -->
     <div class="flex-1">
       <button
-        class="text-amber-800 font-serif text-3xl font-bold hover:text-amber-700 transition-colors duration-300 tracking-wide"
+        class="text-gray-800 font-serif text-2xl lg:text-3xl font-semibold hover:text-gray-600 transition-colors duration-300 tracking-tight"
         [routerLink]="['/']"
       >
-        FurDecor
+        FurniHome
       </button>
+      <p class="text-xs text-gray-400 font-light tracking-wider hidden sm:block">Modern Living</p>
     </div>
-    <nav class="flex-1 flex justify-center">
-      <div class="flex space-x-10 text-gray-700 font-medium text-base">
+
+    <!-- Navigation -->
+    <nav class="hidden md:flex flex-1 justify-center">
+      <div class="flex space-x-8 lg:space-x-10 text-gray-600 font-medium text-sm">
         <a
-          class="hover:text-amber-700 transition-colors duration-200 cursor-pointer relative group"
+          class="hover:text-gray-900 transition-colors duration-200 cursor-pointer relative group py-1"
+          [routerLink]="['/']"
         >
           Home
           <span
-            class="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-700 transition-all duration-300 group-hover:w-full"
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
           ></span>
         </a>
         <a
-          class="hover:text-amber-700 transition-colors duration-200 cursor-pointer relative group"
+          class="hover:text-gray-900 transition-colors duration-200 cursor-pointer relative group py-1"
+          [routerLink]="['/products']"
         >
-          Products
+          Shop
           <span
-            class="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-700 transition-all duration-300 group-hover:w-full"
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
           ></span>
         </a>
         <a
-          class="hover:text-amber-700 transition-colors duration-200 cursor-pointer relative group"
+          class="hover:text-gray-900 transition-colors duration-200 cursor-pointer relative group py-1"
         >
-          Our Mission
+          Collections
           <span
-            class="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-700 transition-all duration-300 group-hover:w-full"
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+        <a
+          class="hover:text-gray-900 transition-colors duration-200 cursor-pointer relative group py-1"
+        >
+          About
+          <span
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
           ></span>
         </a>
       </div>
     </nav>
 
     <!-- Action Buttons -->
-    <div class="flex-1 flex items-center justify-end space-x-5">
-      <!-- Shopping Bag -->
+    <div class="flex-1 flex items-center justify-end space-x-4 lg:space-x-5">
+      
+      <!-- Search Button (optional) -->
       <button
-        class="relative p-2.5 hover:bg-amber-100 rounded-full transition-all duration-200 group"
+        class="hidden sm:flex p-2 hover:bg-gray-50 rounded-full transition-all duration-200 group"
+        title="Search"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -51,21 +66,20 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-6 h-6 text-gray-700 group-hover:text-amber-700 transition-colors"
+          class="w-5 h-5 text-gray-600 group-hover:text-gray-900 transition-colors"
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
           />
         </svg>
-        <span
-          class="absolute -top-1 -right-1 bg-amber-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold shadow-md"
-          >0</span
-        >
       </button>
+
+      <!-- Favorites -->
       <button
-        class="relative p-2.5 hover:bg-amber-100 rounded-full transition-all duration-200 group"
+        class="relative p-2 hover:bg-gray-50 rounded-full transition-all duration-200 group"
+        title="Favorites"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +87,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-6 h-6 text-gray-700 group-hover:text-red-500 transition-colors"
+          class="w-5 h-5 text-gray-600 group-hover:text-rose-500 transition-colors"
         >
           <path
             stroke-linecap="round"
@@ -82,22 +96,70 @@
           />
         </svg>
       </button>
-      <div class="h-8 w-px bg-amber-100"></div>
-      <div class="flex items-center space-x-3">
+
+      <!-- Shopping Bag -->
+      <button
+        class="relative p-2 hover:bg-gray-50 rounded-full transition-all duration-200 group"
+        title="Shopping bag"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5 text-gray-600 group-hover:text-gray-900 transition-colors"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+          />
+        </svg>
+        <span
+          class="absolute -top-0.5 -right-0.5 bg-gray-900 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium text-[10px]"
+        >0</span>
+      </button>
+
+      <!-- Divider -->
+      <div class="hidden lg:block h-6 w-px bg-gray-200"></div>
+
+      <!-- Auth Buttons -->
+      <div class="hidden lg:flex items-center space-x-3">
         <button
-          class="px-5 py-2 text-sm font-medium text-amber-700 border border-amber-200 rounded-lg hover:bg-amber-50 hover:border-amber-300 transition-all duration-200"
+          class="px-4 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"
           [routerLink]="['/login']"
         >
           Login
         </button>
 
         <button
-          class="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-400 to-amber-300 rounded-lg shadow-sm hover:from-amber-500 hover:to-orange-400 transition-all duration-300"
+          class="px-5 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-200 shadow-sm"
           [routerLink]="['/signup']"
         >
           Sign Up
         </button>
       </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden p-2 hover:bg-gray-50 rounded-lg transition-colors">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 text-gray-700"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
     </div>
   </div>
+
+  
 </header>
