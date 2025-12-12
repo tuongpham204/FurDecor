@@ -1,36 +1,45 @@
-<!-- product-list.html -->
+<!-- product-page.html -->
 <div class="container mx-auto px-10 py-8">
-  <!-- Header -->
+  <!-- Header Section -->
   <div class="flex items-center justify-between mb-6">
-    <p class="text-2xl font-semibold">Products</p>
+    <p class="text-2xl font-semibold">
+      {{ selectedCategory !== 'All' ? selectedCategory + ' Products' : 'All Products' }}
+    </p>
 
-    <div class="flex items-center gap-3">
-      <!-- Search Bar -->
-      <div class="relative w-64">
-        <lucide-icon
-          [img]="Search"
-          class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
-        ></lucide-icon>
+    <!-- Search Bar -->
+    <div class="relative w-64">
+      <lucide-icon
+        [img]="Search"
+        class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+      ></lucide-icon>
 
-        <input
-          type="text"
-          placeholder="Search"
-          class="w-full pl-10 pr-3 py-2 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
-        />
-      </div>
-
-      <!-- Add New Product Button -->
-      <button
-        (click)="onAddProduct()"
-        class="flex items-center gap-2 px-4 py-2 border border-gray-800 text-sm font-medium rounded-full shadow-sm hover:bg-gray-100 transition"
-      >
-        <lucide-icon [img]="Plus" class="w-4 h-4"></lucide-icon>
-        Add new product
-      </button>
+      <input
+        type="text"
+        placeholder="Search products..."
+        [(ngModel)]="searchText"
+        (input)="onSearch()"
+        class="w-full pl-10 pr-3 py-2 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+      />
     </div>
   </div>
 
-  <!-- Loading -->
+  <!-- Category Filter -->
+  <div class="flex gap-3 flex-wrap mb-8">
+    <button
+      *ngFor="let category of categories"
+      (click)="onCategorySelected(category)"
+      class="px-4 py-2 rounded-full border text-sm transition-all"
+      [class.bg-black]="selectedCategory === category"
+      [class.text-white]="selectedCategory === category"
+      [class.border-gray-400]="selectedCategory !== category"
+      [class.text-gray-700]="selectedCategory !== category"
+      [class.hover:bg-gray-200]="selectedCategory !== category"
+    >
+      {{ category }}
+    </button>
+  </div>
+
+  <!-- Loading Spinner -->
   <div *ngIf="loading" class="flex justify-center items-center h-64">
     <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
   </div>
@@ -46,15 +55,59 @@
   </div>
 
   <!-- Product Grid -->
-    <div
-      *ngIf="!loading && !error && products.length > 0"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
-    >
-      <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
-    </div>
+  <div
+    *ngIf="!loading && !error && filteredProducts.length > 0"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+  >
+    <app-product-card
+      *ngFor="let product of filteredProducts"
+      [product]="product"
+    ></app-product-card>
+  </div>
 
-  <!-- No products -->
-  <div *ngIf="!loading && !error && products.length === 0" class="text-center text-gray-500 py-16">
-    <p class="text-xl">No products found</p>
+  <!-- Empty State -->
+  <div
+    *ngIf="!loading && !error && filteredProducts.length === 0"
+    class="text-center py-20 text-gray-500"
+  >
+    <p>No products found.</p>
+    <p *ngIf="selectedCategory !== 'All'" class="text-sm mt-2">
+      Thử chọn danh mục khác hoặc quay lại <a routerLink="/" class="text-blue-600 hover:underline">trang chủ</a>.
+    </p>
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="totalCount > pageSize" class="flex justify-center items-center mt-10 gap-2">
+    <!-- Prev Button -->
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+      class="px-3 py-2 border rounded-md text-sm"
+      [class.opacity-50]="currentPage === 1"
+    >
+      Prev
+    </button>
+
+    <!-- Page Numbers -->
+    <button
+      *ngFor="let page of totalPagesArray"
+      (click)="changePage(page)"
+      class="px-3 py-2 border rounded-md text-sm transition"
+      [class.bg-black]="currentPage === page"
+      [class.text-white]="currentPage === page"
+      [class.hover:bg-gray-200]="currentPage !== page"
+    >
+      {{ page }}
+    </button>
+
+    <!-- Next Button -->
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+      class="px-3 py-2 border rounded-md text-sm"
+      [class.opacity-50]="currentPage === totalPages"
+    >
+      Next
+    </button>
   </div>
 </div>

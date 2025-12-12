@@ -1,4 +1,11 @@
-// models/product.model.ts
+// product.model.ts
+
+export interface ProductDimensions {
+  depth: number;
+  width: number;
+  height: number;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -6,11 +13,7 @@ export interface Product {
   description: string;
   wood_type: string;
   finish: string;
-  dimensions: {
-    depth: number;
-    width: number;
-    height: number;
-  };
+  dimensions: ProductDimensions;
   price: number;
   discount_price?: number;
   weight: number;
@@ -21,30 +24,20 @@ export interface Product {
   featured: boolean;
   created_at: string;
   updated_at: string;
-  tags?: string[] | null;
+  tags: string[];
 }
 
-export interface ProductsResponse {
-  success: boolean;
-  count: number;
-  data: Product[];
+export interface ProductFilters {
+  category?: string;
+  wood_type?: string;
+  finish?: string;
+  min_price?: number;
+  max_price?: number;
+  featured?: boolean;
+  search?: string;
 }
 
-// Các giá trị hợp lệ để dùng trong UI
-export const CATEGORIES = [
-  'sofa', 'chair', 'stool', 'table', 'desk', 
-  'kitchen', 'vanitory', 'matress', 'mirror', 
-  'wardrove', 'lamp', 'tv table', 'garden'
-];
-
-export const WOOD_TYPES = [
-  'walnut', 'maple', 'oak', 'pine', 
-  'eucalyptus', 'bamboo', 'teak', 'cedar'
-];
-
-export const FINISHES = ['dark', 'medium', 'light', 'natural'];
-
-export const SORT_OPTIONS = [
-  'price_asc', 'price_desc', 'name_asc', 
-  'name_desc', 'newest', 'oldest'
-];
+export interface ProductResponse {
+  products: Product[];
+  total: number;
+}

@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-catagory',
+  selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ],
-  templateUrl: './catagory.html',
+  imports: [CommonModule],
+  templateUrl: './contact.html',
 })
-export class Catagory {
-  
-}
+export class Contact {}

@@ -1,3 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@import 'tailwindcss';
+
+.toast-success {
+  background: #22c55e;
+  color: white;
+  font-size: 14px;
+  border-radius: 8px;
+}

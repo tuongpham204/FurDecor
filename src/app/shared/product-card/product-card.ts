@@ -2,22 +2,31 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
-import { LucideAngularModule, Flame, TreeDeciduous } from 'lucide-angular';
+import { LucideAngularModule, Flame, TreeDeciduous, ShoppingCart } from 'lucide-angular';
+import { RouterModule } from '@angular/router';
+import { CartService } from '../../service/cart.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, RouterModule],
   templateUrl: './product-card.html',
 })
 export class ProductCard implements OnInit {
   @Input() product!: Product;
 
+  readonly Flame = Flame;
+  readonly TreeDeciduous = TreeDeciduous;
+  readonly ShoppingCart = ShoppingCart;
+
+  // ✅ Inject CartService vào constructor
+  constructor(private cartService: CartService, private snackBar: MatSnackBar) {}
+
   ngOnInit(): void {
     console.log('🎴 ProductCard loaded with product:', this.product);
   }
-  readonly Flame = Flame;
-  readonly TreeDeciduous = TreeDeciduous;
+
   // Tính % giảm giá
   get discountPercentage(): number {
     if (this.product.discount_price && this.product.price > this.product.discount_price) {
@@ -45,8 +54,13 @@ export class ProductCard implements OnInit {
     return this.product.category.charAt(0).toUpperCase() + this.product.category.slice(1);
   }
 
-  // Format wood type
-  get formattedWoodType(): string {
-    return this.product.wood_type.charAt(0).toUpperCase() + this.product.wood_type.slice(1);
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product);
+    this.snackBar.open(`${product.name} added to cart!`, 'Close', {
+      duration: 2500,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['toast-success'],
+    });
   }
 }

@@ -1,0 +1,8 @@
+<button
+  *ngIf="showButton"
+  (click)="scrollToTop()"
+  class="fixed bottom-6 right-2 z-50 w-12 h-12 rounded-full bg-orange-600 text-white shadow-lg hover:bg-orange-700 transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange-500"
+  aria-label="Scroll to top"
+>
+  <lucide-icon [img]="ChevronUp" class="w-6 h-6"></lucide-icon>
+</button>
