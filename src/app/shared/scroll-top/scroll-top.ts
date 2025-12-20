@@ -10,7 +10,7 @@ import { LucideAngularModule, ChevronUp } from 'lucide-angular';
 })
 export class ScrollTop {
   showButton = false;
-  private readonly threshold = 100; // Hiển thị nút khi scroll > 100px
+  private readonly threshold = 100; 
 
   readonly ChevronUp = ChevronUp;
 

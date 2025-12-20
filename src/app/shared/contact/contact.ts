@@ -46,28 +46,23 @@ export class Contact {
   onSubmit() {
     if (this.contactForm.valid) {
       this.isSubmitting = true;
-
-      // Simulate API call
       setTimeout(() => {
         console.log('Contact form submitted:', this.contactForm.value);
         this.showSuccessMessage = true;
         this.isSubmitting = false;
         this.contactForm.reset();
 
-        // Hide success message after 5 seconds
         setTimeout(() => {
           this.showSuccessMessage = false;
         }, 5000);
       }, 1000);
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.contactForm.controls).forEach(key => {
         this.contactForm.get(key)?.markAsTouched();
       });
     }
   }
 
-  // Helper methods for validation messages
   get nameError(): string {
     const control = this.contactForm.get('name');
     if (control?.hasError('required') && control?.touched) {

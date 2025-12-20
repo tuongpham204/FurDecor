@@ -1,4 +1,3 @@
-// wishlist.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../../service/wishlist.service';
@@ -76,12 +75,9 @@ export class Wishlist implements OnInit {
   get totalValue(): number {
     return this.wishlistItems.reduce((total, item) => total + item.price, 0);
   }
-
-  // Handle image error
   onImageError(event: any): void {
     console.error('❌ Image failed to load:', event.target.src);
     event.target.style.display = 'none';
-    // Show placeholder
     const parent = event.target.parentElement;
     if (parent) {
       parent.innerHTML = `
@@ -92,7 +88,6 @@ export class Wishlist implements OnInit {
     }
   }
 
-  // Handle image load success
   onImageLoad(event: any): void {
     console.log('✅ Image loaded successfully:', event.target.src);
   }

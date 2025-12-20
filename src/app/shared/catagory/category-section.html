@@ -1,6 +1,5 @@
 <div class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
   <div class="max-w-7xl mx-auto">
-    <!-- Section Title -->
     <div class="mb-10 text-center">
       <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
         Product Categories
@@ -8,13 +7,11 @@
       <p class="mt-2 text-gray-500 text-sm">Explore our curated list of categories</p>
     </div>
 
-    <!-- Loading -->
     <div *ngIf="loading" class="flex flex-col items-center py-14">
       <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-500"></div>
       <p class="mt-4 text-gray-600 text-sm">Loading categories...</p>
     </div>
 
-    <!-- Error -->
     <div *ngIf="error" class="flex flex-col items-center py-12">
       <div class="w-14 h-14 bg-red-50 text-red-500 rounded-full flex items-center justify-center">
         !
@@ -23,15 +20,11 @@
       <p class="text-gray-600 text-sm mb-4">{{ error }}</p>
     </div>
 
-    <!-- No Data -->
     <div *ngIf="!loading && !error && categories.length === 0" class="text-center py-12">
       <p class="text-gray-600">No categories available</p>
     </div>
-
-    <!-- Carousel Wrapper -->
     <div *ngIf="!loading && !error && categories.length > 0" class="relative">
       <div class="flex items-center gap-6">
-        <!-- Prev Button -->
         <button
           *ngIf="categories.length > itemsPerSlide"
           (click)="prevSlide()"
@@ -39,11 +32,8 @@
         >
           <lucide-icon [img]="ChevronLeft" class="w-5 h-5 text-gray-700"></lucide-icon>
         </button>
-
-        <!-- Carousel Container -->
         <div class="overflow-hidden flex-1">
           <div class="flex gap-6">
-            <!-- Category Item -->
             <div
               *ngFor="let category of getVisibleCategories()"
               [style.flex]="
@@ -54,14 +44,10 @@
                 (click)="selectCategory(category)"
                 class="flex flex-col items-center cursor-pointer group select-none"
               >
-                <!-- Image -->
                 <div class="relative w-full aspect-square max-w-[150px]">
-                  <!-- Background -->
                   <div
                     class="absolute inset-0 rounded-full bg-gray-100 group-hover:bg-gray-200 transition-all duration-300"
                   ></div>
-
-                  <!-- Image -->
                   <div class="absolute inset-0 overflow-hidden rounded-full">
                     <img
                       [src]="category.image"
@@ -72,8 +58,6 @@
                     />
                   </div>
                 </div>
-
-                <!-- Name -->
                 <p
                   class="mt-3 text-sm font-semibold text-gray-700 group-hover:text-orange-600 text-center"
                 >
@@ -84,7 +68,6 @@
           </div>
         </div>
 
-        <!-- Next Button -->
         <button
           *ngIf="categories.length > itemsPerSlide"
           (click)="nextSlide()"
@@ -93,8 +76,6 @@
           <lucide-icon [img]="ChevronRight" class="w-5 h-5 text-gray-700"></lucide-icon>
         </button>
       </div>
-
-      <!-- Indicators -->
       <div *ngIf="getNumSlides() > 1" class="flex justify-center gap-2 mt-6">
         <button
           *ngFor="let slide of getSlideIndicators(); let i = index"

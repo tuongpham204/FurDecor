@@ -1,5 +1,4 @@
 <div class="bg-stone-100 rounded-2xl p-4 overflow-hidden cursor-pointer group">
-  <!-- Image -->
   <div
     class="w-full aspect-square bg-stone-50 overflow-hidden rounded-lg"
     [routerLink]="['/products', product.id]"
@@ -16,7 +15,6 @@
       <p class="text-xs text-stone-500 uppercase tracking-wider mb-1.5 font-medium">
         {{ product.category }}
       </p>
-      <!-- Heart Button với Toggle Animation -->
       <button
         (click)="toggleWishlist(product, $event)"
         class="p-2 rounded-full transition-all duration-300 hover:bg-gray-100 group active:scale-90"

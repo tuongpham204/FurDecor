@@ -14,10 +14,7 @@ import { LucideAngularModule ,Minus, Plus, Trash } from 'lucide-angular';
 })
 export class Cart implements OnInit {
   cartItems: CartItem[] = [];
-  couponCode: string = '';
-  appliedCoupon: string = '';
-  
-  // Price calculations
+  loadingCart: boolean = true;
   subtotal: number = 0;
   shipping: number = 0;
   tax: number = 0;
@@ -31,78 +28,43 @@ export class Cart implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    // Subscribe to cart changes
-    this.cartService.cartItems$.subscribe(items => {
-      this.cartItems = items;
-      this.calculateTotals();
-    });
-  }
+  this.cartService.cartItems$.subscribe(items => {
+    this.cartItems = items;
+    this.calculateTotals();
+    this.loadingCart = false; 
+  });
+}
 
-  // Increase quantity
   increaseQuantity(productId: string): void {
     this.cartService.increaseQuantity(productId);
   }
-
-  // Decrease quantity
   decreaseQuantity(productId: string): void {
     this.cartService.decreaseQuantity(productId);
   }
 
-  // Remove item from cart
   removeItem(productId: string): void {
     if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
       this.cartService.removeItem(productId);
     }
   }
 
-  // Clear entire cart
   clearCart(): void {
     if (confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?')) {
       this.cartService.clearCart();
     }
   }
 
-  // Apply coupon
-  applyCoupon(): void {
-    const code = this.couponCode.toUpperCase();
-    if (code === 'DUO10') {
-      this.appliedCoupon = code;
-      this.calculateTotals();
-      alert('Mã giảm giá đã được áp dụng thành công!');
-    } else if (code === '') {
-      alert('Vui lòng nhập mã giảm giá!');
-    } else {
-      alert('Mã giảm giá không hợp lệ!');
-    }
-  }
-
-  // Calculate all totals
   calculateTotals(): void {
     this.subtotal = this.cartService.getSubtotal();
-    
-    // Free shipping if subtotal > $1000
     this.shipping = this.subtotal > 1000 ? 0 : 49;
-    
-    // Apply discount if coupon is applied
-    if (this.appliedCoupon === 'DUO10') {
-      this.discount = this.subtotal * 0.1; // 10% off
-    } else {
-      this.discount = 0;
-    }
-    
-    // Calculate tax (8%)
+  
     this.tax = (this.subtotal - this.discount) * 0.08;
     
-    // Calculate total
     this.total = this.subtotal - this.discount + this.shipping + this.tax;
   }
-
-  // Get total items count
   get totalItems(): number {
     return this.cartService.getTotalItems();
   }
-
-  // Get item total price
   getItemTotal(item: CartItem): number {
     return item.price * item.quantity;
   }

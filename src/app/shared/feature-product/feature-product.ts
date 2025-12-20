@@ -29,7 +29,7 @@ export class FeatureProduct implements OnInit {
 
     this.productService.getAllProducts().subscribe({
       next: (products: Product[]) => {
-        this.products = products.slice(0, 6); // Giới hạn 6 sản phẩm cho featured
+        this.products = products.slice(0, 6); 
         this.totalCount = products.length;
         this.loading = false;
         this.cdr.detectChanges();

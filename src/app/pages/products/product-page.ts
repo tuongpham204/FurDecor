@@ -17,26 +17,21 @@ export class ProductPage implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
 
-  // UI State
+
   loading: boolean = true;
   error: string = '';
   selectedCategory: string = 'All';
   searchText: string = '';
 
-  // Pagination
+ 
   pageSize: number = 10;
   currentPage: number = 1;
   totalCount: number = 0;
   totalPages: number = 0;
   totalPagesArray: number[] = [];
 
-  // Icons
   readonly Search = Search;
-
-  // Static categories (FE only) - Giữ nguyên, nhưng sẽ map dynamic nếu cần
   categories: string[] = ['All', 'Chair', 'Table', 'Sofa', 'Bed', 'Lamp'];
-
-  // Category slug từ query param (để filter chính xác)
   categorySlug: string = '';
 
   constructor(
@@ -47,14 +42,13 @@ export class ProductPage implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
-    // Subscribe query params để filter theo category từ URL (từ category section)
     this.route.queryParams.subscribe((params) => {
       const slug = params['category'];
       if (slug) {
         this.categorySlug = slug;
-        this.selectedCategory = this.formatCategoryName(slug); // Format slug thành display name
+        this.selectedCategory = this.formatCategoryName(slug); 
         this.currentPage = 1;
-        this.applyFilters(); // Áp dụng filter ngay nếu có products
+        this.applyFilters(); 
       } else {
         this.categorySlug = '';
         this.selectedCategory = 'All';
@@ -84,7 +78,7 @@ export class ProductPage implements OnInit {
 
   onCategorySelected(category: string) {
     this.selectedCategory = category;
-    this.categorySlug = category.toLowerCase(); // Map display name to slug cho filter
+    this.categorySlug = category.toLowerCase(); 
     if (category === 'All') {
       this.categorySlug = '';
     }
@@ -99,8 +93,6 @@ export class ProductPage implements OnInit {
 
   applyFilters() {
     let result = [...this.products];
-
-    // Category filter (dùng slug cho chính xác, ignore "All")
     if (this.categorySlug) {
       result = result.filter((p) => p.category?.toLowerCase() === this.categorySlug.toLowerCase());
     }
@@ -127,10 +119,6 @@ export class ProductPage implements OnInit {
     this.currentPage = page;
     this.applyFilters();
   }
-
-  /**
-   * Format slug to display name (tương tự category section)
-   */
   formatCategoryName(slug: string): string {
     return slug
       .split('-')

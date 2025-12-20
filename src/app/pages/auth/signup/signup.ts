@@ -24,8 +24,6 @@ export class Signup {
       validators: this.passwordMatchValidator
     });
   }
-
-  // Custom validator to check if passwords match
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
@@ -46,10 +44,7 @@ export class Signup {
       };
       console.log('Signup data:', signupData);
       alert('Account created successfully!');
-      // TODO: Call your authentication service here
-      // this.authService.register(signupData).subscribe(...)
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.signupForm.controls).forEach(key => {
         this.signupForm.get(key)?.markAsTouched();
       });

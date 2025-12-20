@@ -24,12 +24,10 @@ export class CategorySection implements OnInit, OnDestroy {
   loading = true;
   error = '';
 
-  // Carousel state
   currentSlide = 0;
   itemsPerSlide = 7;
   numSlides = 0;
 
-  // Icons
   readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
 
@@ -52,10 +50,6 @@ export class CategorySection implements OnInit, OnDestroy {
   private handleResize = (): void => {
     this.updateItemsPerSlide();
   };
-
-  /**
-   * Load categories from API by extracting unique categories from products
-   */
   loadCategories(): void {
     this.loading = true;
     this.error = '';
@@ -66,7 +60,7 @@ export class CategorySection implements OnInit, OnDestroy {
       .pipe(
         finalize(() => {
           this.loading = false;
-          this.cdr.detectChanges(); // Trigger change detection
+          this.cdr.detectChanges(); 
           console.log('Loading finished. Categories:', this.categories.length);
         })
       )
@@ -102,24 +96,16 @@ export class CategorySection implements OnInit, OnDestroy {
         error: (err) => {
           console.error('Subscribe error:', err);
           this.error = 'Không thể tải danh mục. Vui lòng thử lại sau.';
-          this.cdr.detectChanges(); // Trigger change detection for error state
+          this.cdr.detectChanges(); 
         },
       });
   }
-
-  /**
-   * Format category slug to display name
-   */
   formatCategoryName(slug: string): string {
     return slug
       .split('-')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
-
-  /**
-   * Update items per slide based on screen size
-   */
   updateItemsPerSlide(): void {
     const width = window.innerWidth;
     if (width < 640) {
@@ -136,47 +122,29 @@ export class CategorySection implements OnInit, OnDestroy {
     this.numSlides = this.getNumSlides();
     this.currentSlide = Math.min(this.currentSlide, Math.max(0, this.numSlides - 1));
   }
-
-  /**
-   * Get number of slides
-   */
   getNumSlides(): number {
     return Math.max(1, Math.ceil(this.categories.length / this.itemsPerSlide));
   }
-
-  /**
-   * Get visible categories for current slide
-   */
   getVisibleCategories(): Category[] {
     const startIndex = this.currentSlide * this.itemsPerSlide;
     const endIndex = startIndex + this.itemsPerSlide;
     return this.categories.slice(startIndex, endIndex);
   }
-
-  /**
-   * Get slide indicators array
-   */
   getSlideIndicators(): number[] {
     return Array.from({ length: this.getNumSlides() }, (_, i) => i);
   }
 
-  /**
-   * Navigate to products page with category filter
-   */
   selectCategory(category: Category): void {
     this.router.navigate(['/products'], {
       queryParams: { category: category.slug },
     });
   }
 
-  /**
-   * Carousel navigation
-   */
   nextSlide(): void {
     if (this.currentSlide < this.numSlides - 1) {
       this.currentSlide++;
     } else {
-      this.currentSlide = 0; // Loop back to first slide
+      this.currentSlide = 0;
     }
   }
 
@@ -184,13 +152,9 @@ export class CategorySection implements OnInit, OnDestroy {
     if (this.currentSlide > 0) {
       this.currentSlide--;
     } else {
-      this.currentSlide = this.numSlides - 1; // Loop to last slide
+      this.currentSlide = this.numSlides - 1; 
     }
   }
-
-  /**
-   * Go to specific slide
-   */
   goToSlide(index: number): void {
     this.currentSlide = Math.max(0, Math.min(index, this.numSlides - 1));
   }

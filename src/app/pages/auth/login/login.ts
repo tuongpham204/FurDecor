@@ -29,17 +29,12 @@ export class Login {
         rememberMe: this.rememberMe
       };
       console.log('Login data:', loginData);
-      // TODO: Call your authentication service here
-      // this.authService.login(loginData).subscribe(...)
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
       });
     }
   }
-
-  // Helper methods for validation messages
   get emailError(): string {
     const control = this.loginForm.get('email');
     if (control?.hasError('required') && control?.touched) {

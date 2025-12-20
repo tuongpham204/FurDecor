@@ -1,6 +1,5 @@
 <div class="min-h-screen bg-stone-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Page Header -->
     <div class="mb-10">
       <h1 class="text-3xl font-semibold text-stone-900 mb-2">Your Wishlist</h1>
       <p class="text-stone-600">
@@ -9,10 +8,8 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-      <!-- Sidebar -->
       <aside class="lg:col-span-1 space-y-6">
         <div class="bg-white rounded-xl border border-stone-200 p-5 sticky top-8">
-          <!-- Summary -->
           <div class="mb-6">
             <h3 class="text-xs font-semibold text-stone-900 uppercase tracking-wider mb-4">
               Wishlist Summary
@@ -30,8 +27,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Filter (UI only) -->
           <div class="mb-6">
             <h3 class="text-xs font-semibold text-stone-900 uppercase tracking-wider mb-3">
               Room Filter
@@ -50,8 +45,6 @@
               </label>
             </div>
           </div>
-
-          <!-- Actions -->
           <div class="space-y-2 pt-4 border-t border-stone-200">
             <button
               (click)="addAllToCart()"
@@ -70,10 +63,7 @@
           </div>
         </div>
       </aside>
-
-      <!-- Main Content -->
       <main class="lg:col-span-3">
-        <!-- Empty State -->
         <div
           *ngIf="wishlistItems.length === 0"
           class="bg-white rounded-xl border border-stone-200 p-12 text-center"
@@ -86,8 +76,6 @@
             >Browse Products</a
           >
         </div>
-
-        <!-- Wishlist Grid -->
         <div
           *ngIf="wishlistItems.length > 0"
           class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
@@ -96,7 +84,6 @@
             *ngFor="let item of wishlistItems"
             class="bg-white rounded-xl border border-stone-200 overflow-hidden group hover:shadow-lg transition"
           >
-            <!-- Image -->
             <div class="relative aspect-square bg-stone-100 overflow-hidden">
               <img
                 [src]="item.image_path"
@@ -105,8 +92,6 @@
                 loading="lazy"
               />
             </div>
-
-            <!-- Content -->
             <div class="p-4">
               <h3 class="text-base font-semibold text-stone-900 truncate mb-1">{{ item.name }}</h3>
               <p class="text-sm text-stone-500 mb-3">{{ item.wood_type }} · {{ item.finish }}</p>
@@ -123,8 +108,6 @@
                   <lucide-icon [img]="Trash" class="w-4 h-4"></lucide-icon>
                 </button>
               </div>
-
-              <!-- Actions -->
               <div class="space-y-2">
                 <button
                   (click)="addToCart(item)"
