@@ -1,0 +1,24 @@
+<nav class="flex items-center gap-2 text-sm">
+  <a
+    routerLink="/"
+    class="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 hover:text-black"
+  >
+    <lucide-icon [img]="Home" class="w-4 h-4"></lucide-icon>
+    Home
+  </a>
+  <ng-container *ngFor="let crumb of breadcrumbs; let last = last">
+    <span class="text-gray-400">/</span>
+
+    <ng-container *ngIf="!last; else current">
+      <a [routerLink]="crumb.url" class="px-4 py-2 bg-white text-gray-700 hover:text-black">
+        {{ crumb.label }}
+      </a>
+    </ng-container>
+
+    <ng-template #current>
+      <span class="px-4 py-2 bg-white font-semibold text-gray-900">
+        {{ crumb.label }}
+      </span>
+    </ng-template>
+  </ng-container>
+</nav>

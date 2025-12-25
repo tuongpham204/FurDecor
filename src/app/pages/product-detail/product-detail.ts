@@ -5,6 +5,7 @@ import { ProductService } from '../../service/product.service';
 import { Product } from '../../models/product.model';
 import { Review } from '../../shared/review/review';
 import { CartService } from '../../service/cart.service';
+import { WishlistService } from '../../service/wishlist.service';
 import {
   LucideAngularModule,
   Minus,
@@ -14,12 +15,13 @@ import {
   RotateCcw,
   Star,
   MessageCircle,
+  Heart,
 } from 'lucide-angular';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, Review , ],
+  imports: [CommonModule, LucideAngularModule, Review],
   templateUrl: './product-detail.html',
 })
 export class ProductDetail implements OnInit {
@@ -35,12 +37,14 @@ export class ProductDetail implements OnInit {
   RotateCcw = RotateCcw;
   Star = Star;
   MessageCircle = MessageCircle;
+  Heart = Heart;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
@@ -114,5 +118,17 @@ export class ProductDetail implements OnInit {
   }
   addToCart(product: Product): void {
     this.cartService.addToCart(product);
+  }
+  toggleWishlist(product: Product, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.isInWishlist
+      ? this.wishlistService.removeFromWishlist(product.id)
+      : this.wishlistService.addToWishlist(product);
+  }
+
+  get isInWishlist(): boolean {
+    return this.wishlistService.isInWishlist(this.product!.id);
   }
 }

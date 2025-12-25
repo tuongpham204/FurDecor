@@ -1,5 +1,4 @@
 <div class="bg-stone-100 rounded-2xl p-4 overflow-hidden group/card">
-  <!-- Image -->
   <div
     class="w-full aspect-square bg-stone-50 overflow-hidden rounded-lg cursor-pointer"
     [routerLink]="['/products', product.id]"
@@ -12,7 +11,6 @@
   </div>
 
   <div class="mt-3">
-    <!-- Category + Wishlist -->
     <div class="flex justify-between items-center">
       <p class="text-xs text-stone-500 uppercase tracking-wider font-medium">
         {{ product.category }}
@@ -35,15 +33,11 @@
         ></lucide-icon>
       </button>
     </div>
-
-    <!-- Name -->
     <h3
       class="mt-2 text-base font-semibold text-stone-800 line-clamp-1 transition-colors group-hover/card:text-stone-900"
     >
       {{ product.name }}
     </h3>
-
-    <!-- Price + Cart -->
     <div class="mt-3 flex items-end justify-between">
       <div>
         <span

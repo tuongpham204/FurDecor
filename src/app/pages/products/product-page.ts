@@ -5,14 +5,14 @@ import { ProductService } from '../../service/product.service';
 import { ProductCard } from '../../shared/product-card/product-card';
 import { Product } from '../../models/product.model';
 import { LucideAngularModule, Search } from 'lucide-angular';
+
 @Component({
-  selector: 'app-product',
+  selector: 'app-product-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductCard, LucideAngularModule, ],
+  imports: [CommonModule, FormsModule, ProductCard, LucideAngularModule],
   templateUrl: './product-page.html',
 })
 export class ProductPage implements OnInit {
- 
   products: Product[] = [];
   filteredProducts: Product[] = [];
 
